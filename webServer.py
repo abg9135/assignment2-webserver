@@ -20,6 +20,7 @@ def webServer(port=13331):
             filename = message.split()[1]
             
             # Open the client requested file.
+            # Plenty of guidance online on how to open and read a file in python. How should you read it though if you plan on sending it through a socket?
             with open(filename[1:], 'rb') as f:
                 outputdata = f.read()
             
@@ -41,7 +42,12 @@ def webServer(port=13331):
             not_found_response += b"\r\n"  # blank line
             not_found_response += b"<html><body><h1>404 Not Found</h1></body></html>"
             connectionSocket.send(not_found_response)
+            #Close client socket
             connectionSocket.close()
+
+        #Commenting out the below, as its technically not required and some students have moved it erroneously in the While loop. DO NOT DO THAT OR YOURE GONNA HAVE A BAD TIME.
+        #serverSocket.close()
+        #sys.exit()  # Terminate the program after sending the corresponding data
 
 if __name__ == "__main__":
     webServer(13331)
